@@ -19,9 +19,19 @@ public class CabInvoiceGeneratorTest {
     }
 
     @Test
-    public void to_check_total_fare_if_given_false(){
+    public void to_check_total_fare_if_given_less_return_minimumfare(){
         double totalFare=cabInvoiceGenerator.calculateFare(0.1,2);
         Assert.assertEquals(5,totalFare,0.0);
     }
+
+    @Test
+    public void given_Multiple_Rides_Should_Return_TotalFare(){
+        Ride[] rides={new Ride(2.0,5),
+        new Ride(0.1,2)};
+
+        double totalFare=cabInvoiceGenerator.calculateFare(rides);
+        Assert.assertEquals(30,totalFare,0.0);
+    }
+
 
 }
