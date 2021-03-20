@@ -26,8 +26,8 @@ public class CabInvoiceGeneratorTest {
 
     @Test
     public void given_Multiple_Rides_Should_Return_TotalFare(){
-        Ride[] rides={new Ride(2.0,5),
-            new Ride(0.1,2)};
+        Ride[] rides={new Ride(2.0,5,CabRide.Normal),
+            new Ride(0.1,2,CabRide.Normal)};
 
         double totalFare=cabInvoiceGenerator.calculateFare(rides);
         Assert.assertEquals(30,totalFare,0.0);
@@ -35,8 +35,8 @@ public class CabInvoiceGeneratorTest {
 
     @Test
     public void given_mutiple_should_return_average_Fare(){
-        Ride[] rides={new Ride(2.0,5),
-                new Ride(0.1,2)};
+        Ride[] rides={new Ride(2.0,5,CabRide.Normal),
+                new Ride(0.1,2,CabRide.Normal)};
 
         double totalFare=cabInvoiceGenerator.calculateFare(rides);
         int numberofrides=cabInvoiceGenerator.numofRides(rides);
@@ -50,14 +50,30 @@ public class CabInvoiceGeneratorTest {
     @Test
     public void adding_UserID_to_Ride_repository(){
         String userId="Omkar";
-        Ride[] rides={new Ride(2.0,5),
-                new Ride(0.1,2),
-                new Ride(1,2)};
+        Ride[] rides={new Ride(2.0,5,CabRide.Normal),
+                new Ride(0.1,2,CabRide.Normal),
+                new Ride(1,2,CabRide.Normal)};
 
         cabInvoiceGenerator.addRides(userId,rides);
         double rideinfo=cabInvoiceGenerator.getRidesInfo(userId);
         int numofRides=cabInvoiceGenerator.numofRides(rides);
 
         Assert.assertEquals(42,rideinfo,0.0);
+        Assert.assertEquals(3,numofRides);
     }
+
+    @Test
+    public void adding_Premium_and_Normal_Rides(){
+        String userId="Omkar";
+        Ride[] rides={new Ride(2.0,5,CabRide.Normal),
+                new Ride(0.1,1,CabRide.PREMIUM),
+                new Ride(2,2,CabRide.PREMIUM)};
+        cabInvoiceGenerator.addRides(userId,rides);
+        double rideinfo=cabInvoiceGenerator.getRidesInfo(userId);
+        int numofRides=cabInvoiceGenerator.numofRides(rides);
+
+        Assert.assertEquals(62.5,rideinfo,0.0);
+        Assert.assertEquals(3,numofRides);
+    }
+
 }
