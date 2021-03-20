@@ -41,10 +41,23 @@ public class CabInvoiceGeneratorTest {
         double totalFare=cabInvoiceGenerator.calculateFare(rides);
         int numberofrides=cabInvoiceGenerator.numofRides(rides);
         double averageFare=cabInvoiceGenerator.calculateaverageFarePerRide(rides);
-        
+
         Assert.assertEquals(30,totalFare,0.0);
         Assert.assertEquals(2,numberofrides);
         Assert.assertEquals(15,averageFare,0.0);
     }
 
+    @Test
+    public void adding_UserID_to_Ride_repository(){
+        String userId="Omkar";
+        Ride[] rides={new Ride(2.0,5),
+                new Ride(0.1,2),
+                new Ride(1,2)};
+
+        cabInvoiceGenerator.addRides(userId,rides);
+        double rideinfo=cabInvoiceGenerator.getRidesInfo(userId);
+        int numofRides=cabInvoiceGenerator.numofRides(rides);
+
+        Assert.assertEquals(42,rideinfo,0.0);
+    }
 }
