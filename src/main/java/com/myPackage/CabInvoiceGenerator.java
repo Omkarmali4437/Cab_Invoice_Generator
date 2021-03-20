@@ -22,4 +22,17 @@ public class CabInvoiceGenerator {
         }
         return totalFare;
     }
+
+    public int numofRides(Ride[] rides){
+        return rides.length;
+    }
+
+    public double calculateaverageFarePerRide(Ride[] rides){
+       CabInvoiceGenerator cabInvoiceGenerator=new CabInvoiceGenerator();
+       double totalFare= cabInvoiceGenerator.calculateFare(rides);
+       double numofrides=rides.length;
+       double averageFare=0;
+        averageFare=totalFare/numofrides;
+        return averageFare;
+    }
 }
